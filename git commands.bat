@@ -14,7 +14,7 @@ git status
 
 PAUSE
 
-git push origin-github master
+git push origin-gitee master
 
 git push origin  master
 
