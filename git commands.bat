@@ -12,6 +12,8 @@ git commit -m message
 
 git status
 
+ECHO Press any key to push...
+
 PAUSE
 
 git push origin-gitee master
