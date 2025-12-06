@@ -2,3 +2,5 @@
 I had tried to learn mathematics in Chinese, which is my mother tongue. Unfortunately, it is hard to find books or videos which are friendly to beginners or self-learners. The purpose of these educational experts and teachers is to show that they know but not to let you know. As a consequence, all the books are full of symbols and proofs which are quite difficult to understand. Admittedly, that undermined my confidence and enthusiasm on learning math. 
 
 This situation had changed after I read an essay about how to learn mathematics effectively. One reason that the author recommended readers learn math in English is almost all of the masterpieces on math are written in English and the most important thing is that they are quite friendly to beginners. The other that is the inaccuracy of Chinese translation of a book could lead to misunderstanding of the author's intention. Of course, the interpreters should not be to blame because to do the job well needs both professional mathematical knowledge and English but seldom do they have.
+
+There are three main subjects I am learning: Calculus, Linear and Probability and Statistics. 
