@@ -169,3 +169,223 @@ The puzzle asks us to find out the minimum drops when we don't know which floor 
 If is doesn't break, we have `n-1` drops left, too. Then we go up to `n + (n - 1)` floor because we have dropped 1 time and have `n - 1` left. If it breaks at `n + (n - 1)`, two drops have been done and `n -2 (n + (n - 1) - (n + 1))` left. 
 
 (2) Since the total storey is 100, we have `n + (n - 1) + (n - 2) ... + 1 <= 100`. $n \approx 14$. 
+
+#### 9. Maximising Profit: buy and sell
+
+```c
+#include <stdio.h>
+#define N 8
+
+int buy_sell(int a[]);
+
+int main(int argc, char *argv[])
+{
+	int a[N] = {3, 7, 2, 4, 8, 1, 10, 0};
+	int profit = buy_sell(a);
+	printf("%d\n", profit);
+	return 0;
+}
+
+int buy_sell(int a[])
+{
+	int i, j, min, profit;
+	min = a[0];
+	profit = 0;
+	for (i = 0, j = i + 1;  j < N; j++) {
+		// Find the lowest price.
+		if (a[j] < min) {
+			min = a[j];
+		}
+		
+		if (a[j] - min > profit) {
+			profit = a[j] - min;
+		}
+		
+	}	
+	return profit;
+}
+```
+
+#### 10. Six balls, two weighing
+
+Assume we have three colours of balls: red, yellow, and blue, two per each. 
+
+The first weighing is: 
+
+We put 1 read and 1 yellow balls on one side and 1 red and 1 blue on the other of a scale. 
+
+```txt
+Red 1, Yellow 1  _|_  Red 2 and Blue 1
+```
+
+1) One scenario is the scale is balanced. Then we put one of the two red balls on each side of the scale.
+
+If  "Red 1" is heavier, "Red 2" is lighter. Subsequently, "Yellow 1" is lighter and "Blue 1" is heavier. 
+
+2) If `R1 + Y1 < R2 + B1`, R1 must be lighter than R2. If R1 is heavier than R2, the left side won't be lighter than the right side even if Y1 is the lighter one. 
+
+So, R1 < R2
+
+The second weighing is `Y1, B1  |  R1, R2`. 
+
+2.1) If it is balanced, Y1 and B1 are different in weight. Since `R1 + Y1 < R2 + B1` in the first weighing, Y1 is lighter and B1 is heavier, therefore Y2 is heavier and B2 is lighter. 
+
+2.2) If `Y1, B1` is heavier than `R1, R2`, both of `Y1, B1` are the heavier balls. 
+
+2.3) If `Y1, B1` is lighter than `R1, R2`, both of `Y1, B1` are the lighter balls. 
+
+3) The last scenario is `R1 + Y1 > R2 + B1`, R2 must be lighter than R1 as we concluded in the second scenario, R1 < R2
+
+The second weighing:  `Y1, B1 | R1, R2`. 
+
+3.1) If it balanced, Y1 and B1 are different in weight. Since ``R1 + Y1 > R2 + B1`, Y1 must be the heavier one and B1 is the lighter  one. 
+
+3.2) If  `Y1, B1 < R1, R2`, both of them are lighter balls.
+
+3.3) If  `Y1, B1 > R1, R2`, both of them are heavier balls.
+
+#### 11. Eight balls weight
+
+1) First of all, select six balls and put three balls on each side of scale. 
+
+2) There are two scenarios.
+
+2.1) One is it is balanced, which indicates that there is not any ball which is heavier. Then we weigh the other two balls and can find which one is slightly heavier. 
+
+2.2) The second is that one side is heavier, whatever it is the left or the right side. We select any two balls from the heavier side and weigh them. If they have same weight, the rest one is heavier. If they don't, we can find which one is heavier. 
+
+#### 12. 27 coins and two-pan balance
+
+27 / 3 = 9
+
+9 / 3 = 3
+
+Choose any two of the three balls and put one ball on each side of a scale.
+
+#### 13. Find the missing number in an array in O(n)  
+
+```c
+int arr[7] = {1, 2, 4, 6, 3, 7, 8};
+```
+
+1) Sum all the numbers in the array. They are 31 in total. 
+
+2) While the sum of an consecutive array from 1 to 8 is $n (1 + n) \over 2$, which is 36. Let 36 - 31 = 5. 5 is the missing number. 
+
+#### 14. Equilibrium index of an array. O(n)
+
+What is an equilibrium index of an array?
+
+As an illustration, for ` int arr[8] = {-1, 3, -4, 5, 1, -6, 2, 1};`, `arr[0] + arr[1] = 2 = arr[3] + ... arr[7]`  , so 1 is the equilibrium. Note that if the sum of consecutive elements is 0, the index of the last element is the equilibrium index. To illustration,  for `arr[0] + arr[1] +...+ arr[6] = 0` 6 is the equilibrium index. 
+
+How to find it? 
+
+1) Sum all the elements in an array. Suppose it is `sumTotal`.
+
+2) Traverse the array from the index of 0, subtract `arr[0]` from `sumTotal`: `sumTotal -= arr[0]`. The `leftSum = arr[0]`. If the left `leftSum == sumTotal // has subtracted arr[0] `, 0 is the equilibrium. If not do `sumTotal -= arr[1]` and  `leftSum = arr[1] + arr[0]`  , compare `leftSum == sumTotal`. 
+
+#### 15. Finding the jar with defective marbles  
+
+1) Take one marble from the first jar, take two marble from the second jar and so forth. There are ${n(1+n) \over {2}} = {10 \times (1+10) \over {2}} = 550$ grams if none of them are defective. 
+
+2) Put all of them on the scale. If the weight is 549, the one marble from the first jar is defective; if it is 548, the two marbles from the second are defective; if it is 547, the three marbles from the third jar are defective...
+
+#### 16. Measuring nine minutes using sand timer
+
+1) Start both of 7-minute and 4-minute timer at the same time. 
+
+2) Turn the 4-minute timer upside down once it finishes.
+
+3) When the 7-minute timer ends, turn it upside down immediately. There is 1 minute left in the 4-minute timer, because 4 + 4 - 7 = 1;
+
+4) Once the 4-minute timer finishes the second time, turn the 7-minute timer upside down. Currently, 8 minutes have been recorded and only 1 minute passed in the 7-minute timer, so turn the 7-minute timer upside down again to measure 1 minute. When it ends, we get 8+1 = 9 minutes in total. 
+
+#### 17. Calculate the number of moves-Hanoi Tower
+
+![1777255644005](note-images/1777255644005.png)
+
+1) Let's start with 2 disks. 
+
+1.1) Use rod B as a temporary port. 
+
+Move 1 from A to B, 1 moves.
+
+Move 2 from A to C, 1 moves.
+
+Move 1 from B to C, 1 moves. 
+
+There are 3 moves in total for 2 disks. 
+
+2) Then we deal with 3 disks.
+
+<img src="note-images/1777256037164.png" alt="1777256037164" style="zoom:50%;" />
+
+Three disks can be dealt with 1 largest disk and 2 smaller disks. Since we know how many moves it needs to two disk from one rod to another, we move the upper 2 smaller disks from rod A to B instead of from rod A to C instead. We use rod C as a temporary port instead of rod B. 
+
+2.1) Moving the 2 smaller disks from A to B using rod C as a temporary port needs 3 moves.
+
+2.2) Moving the largest disk from A to C needs 1 move.
+
+2.3) Moving the 2 smaller disks from B to C using rod A as a temporary port also needs 3 moves.
+
+In conclusion, there are 3 + 1 + 3 moves in total. 
+
+It is a recursive function. 
+
+```txt
+T(n) = 2T(n-1) + 1  (n > 2)
+T(n) = 1 (n = 1)
+```
+
+#### 18. The ladder problem – Fibonacci numbers  
+
+1) Let's start with 2 stairs. 
+
+There are two ways to reach the top. One person can climb either 1 stair each time or 2 stairs at one time. 
+
+2) Then deal with 3 stairs. 
+
+The person can climb 1 stair each time, 1 stair at the first move and 2 stairs at the second one, or 2 stairs at the first move and 1 at the second. 
+
+There are 3 ways in total. 
+
+3) How many are the ways to climb 4 stairs ? 
+
+To simplify the problem, we don't count from the first step but remove stairs from the top. 
+
+3.1) Remove one stair from the top and then there are 3 stairs left. 
+
+Do you remember how many ways it needs to reach the top of 3-stair ladder? 
+
+Yes, there are 3 ways. Then add it back, the person has to climb this only one stair. Thus, the number is 3.
+
+3.2) Remove two stairs from the top.
+
+The person has 2 ways to climb up to the top of 2 stairs. Then add the two stairs back, there are only 2 stairs to climb, therefore, there are 2 ways in this scenario. 
+
+For 4 stairs, there are 3 + 2 = 5 ways. 
+
+It is also a recursive function: `T(n) = T(n-1) + T(n-2)`
+
+#### 19. Blind Game
+
+Since there are 10 coins show tails and 40 coins showing heads, we should divide the coins into two groups of which the number of the smaller group must be equal to 10 coins. Then we flip all the coins in the smaller group so the number tails of two groups are the same. 
+
+Note that the number of the smaller group must equals to 10, because there are 10 coins showing tails. 
+
+#### 20. Gas stations in a circle
+
+Let assume that the oil tank of a car can be negative and big enough. 
+
+Start at any station of the trek. Fill the tank and drive the next station; record the number after every trip. 
+
+The station marked with the least negative number is where the driver should start. The reason is that this station is set to 0 now so that the number of the rest of the stations are positive. 
+
+#### 21. Detecting a cycle in a singly linked list
+
+Explanation of the answer. 
+
+It is like two runners in a round track; one is running at the speed of 2 metres and the other is at 1 metre. Eventually, the faster one will meet the slower one. 
+
+
+
